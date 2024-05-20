@@ -29,7 +29,7 @@ function shuffle(array) {
 function startGame() {
     createDeck();
     playerHand = [drawCard(), drawCard()];
-    dealerHand = [drawCard(), drawCard()];
+    dealerHand = [drawCard();
     displayHands();
     checkForBlackjack();
 }
@@ -102,8 +102,6 @@ function getHandValue(hand) {
 function checkForBlackjack() {
     if (getHandValue(playerHand) === 21) {
         endGame('Blackjack! You win!');
-    } else if (getHandValue(dealerHand) === 21) {
-        endGame('Dealer has Blackjack! You lose.');
     }
 }
 
