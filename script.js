@@ -29,7 +29,7 @@ function shuffle(array) {
 function startGame() {
     createDeck();
     playerHand = [drawCard(), drawCard()];
-    dealerHand = [drawCard();
+    dealerHand = [drawCard()];
     displayHands();
     checkForBlackjack();
 }
