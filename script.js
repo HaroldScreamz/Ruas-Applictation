@@ -44,12 +44,12 @@ function displayHands() {
     updatePlayerTotal();
 }
 
-function handToString(hand, isDealer = false) {
+function handToHTML(hand, isDealer = false) {
     return hand.map((card, index) => {
         if (isDealer && index === 0 && !gameOver) {
-            return `<div>?</div>`;
+            return `<img src="cards/back.png" alt="Card back">`;
         }
-        return `<div>${card.value} of ${card.suit}</div>`;
+        return `<img src="cards/${card.value.toLowerCase()}_of_${card.suit.toLowerCase()}.png" alt="${card.value} of ${card.suit}">`;
     }).join('');
 }
 
