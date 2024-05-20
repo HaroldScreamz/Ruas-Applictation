@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #2c3e50;
+    color: white;
+}
+
+#game {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.hand {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.hand div {
+    margin: 0 10px;
+    padding: 20px;
+    background-color: #34495e;
+    border-radius: 5px;
+    width: 60px;
+    height: 90px;
+}
+
+#controls button {
+    margin: 5px;
+    padding: 10px 20px;
+    background-color: #2980b9;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+#controls button:hover {
+    background-color: #3498db;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
