@@ -1,8 +1,8 @@
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
-const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
+const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
 
 document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('stand').addEventListener('click', stand);
@@ -49,7 +49,7 @@ function handToHTML(hand, isDealer = false) {
         if (isDealer && index === 0 && !gameOver) {
             return `<img src="cards/back.png" alt="Card back">`;
         }
-        return `<img src="cards/${card.value.toLowerCase()}_of_${card.suit.toLowerCase()}.png" alt="${card.value} of ${card.suit}">`;
+        return `<img src="cards/${card.value}_of_${card.suit}.png" alt="${card.value} of ${card.suit}">`;
     }).join('');
 }
 
@@ -81,9 +81,9 @@ function getHandValue(hand) {
     let value = 0;
     let numAces = 0;
     for (let card of hand) {
-        if (card.value === 'J' || card.value === 'Q' || card.value === 'K') {
+        if (card.value === 'j' || card.value === 'q' || card.value === 'k') {
             value += 10;
-        } else if (card.value === 'A') {
+        } else if (card.value === 'a') {
             value += 11;
             numAces += 1;
         } else {
