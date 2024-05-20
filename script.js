@@ -122,5 +122,10 @@ function updatePlayerTotal() {
     document.getElementById('player-total').textContent = `Player Total: ${total}`;
 }
 
+function upadteDealerTottal() {
+    const total = getHandValue(dealerHand);
+    document.getElementById('dealer-toatal').textContent = `Dealer Totoal: ${total}`;
+}
+
 let gameOver = false;
 startGame();
