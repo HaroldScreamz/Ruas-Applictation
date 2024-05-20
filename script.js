@@ -41,6 +41,7 @@ function drawCard() {
 function displayHands() {
     document.getElementById('player-hand').innerHTML = handToString(playerHand);
     document.getElementById('dealer-hand').innerHTML = handToString(dealerHand, true);
+    updatePlayerTotal();
 }
 
 function handToString(hand, isDealer = false) {
@@ -114,6 +115,11 @@ function resetGame() {
     gameOver = false;
     document.getElementById('message').textContent = '';
     startGame();
+}
+
+function updatePlayerTotal() {
+    const total = getHandValue(playerHand);
+    document.getElementById('player-total').textContent = `Player Total: ${total}`;
 }
 
 let gameOver = false;
