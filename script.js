@@ -39,8 +39,8 @@ function drawCard() {
 }
 
 function displayHands() {
-    document.getElementById('player-hand').innerHTML = handToString(playerHand);
-    document.getElementById('dealer-hand').innerHTML = handToString(dealerHand, true);
+    document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
+    document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand, true);
     updatePlayerTotal();
 }
 
@@ -108,7 +108,7 @@ function checkForBlackjack() {
 function endGame(message) {
     gameOver = true;
     document.getElementById('message').textContent = message;
-    document.getElementById('dealer-hand').innerHTML = handToString(dealerHand);
+    document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
 }
 
 function resetGame() {
@@ -120,11 +120,6 @@ function resetGame() {
 function updatePlayerTotal() {
     const total = getHandValue(playerHand);
     document.getElementById('player-total').textContent = `Player Total: ${total}`;
-}
-
-function upadteDealerTottal() {
-    const total = getHandValue(dealerHand);
-    document.getElementById('dealer-toatal').textContent = `Dealer Totoal: ${total}`;
 }
 
 let gameOver = false;
