@@ -39,6 +39,8 @@ function drawCard() {
 }
 
 function displayHands() {
+    console.log('Player Hand:', playerHand);
+    console.log('Dealer Hand:', dealerHand);
     document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand, true);
     updatePlayerTotal();
@@ -119,6 +121,7 @@ function resetGame() {
 
 function updatePlayerTotal() {
     const total = getHandValue(playerHand);
+    console.log('Player Total:', total);
     document.getElementById('player-total').textContent = `Player Total: ${total}`;
 }
 
