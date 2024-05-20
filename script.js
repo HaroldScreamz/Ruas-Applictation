@@ -42,15 +42,12 @@ function displayHands() {
     console.log('Player Hand:', playerHand);
     console.log('Dealer Hand:', dealerHand);
     document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
-    document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand, true);
+    document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
     updatePlayerTotal();
 }
 
-function handToHTML(hand, isDealer = false) {
-    return hand.map((card, index) => {
-        if (isDealer && index === 0 && !gameOver) {
-            return `<img src="cards/back.png" alt="Card back">`;
-        }
+function handToHTML(hand) {
+    return hand.map(card => {
         return `<img src="cards/${card.value}_of_${card.suit}.png" alt="${card.value} of ${card.suit}">`;
     }).join('');
 }
