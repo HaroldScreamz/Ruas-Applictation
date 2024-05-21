@@ -117,11 +117,13 @@ function endGame(message) {
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
     document.getElementById('hit').disabled = true;
     document.getElementById('stand').disabled = true;
+    
     if (message.includes('win')) {
         playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
-    } else if (message.includes('lose')) {
-        // Bet amount has already been deducted at the time of placing the bet
-    }
+    } else if (message.includes('Push')) {
+        playerChips += currentBet; // In a tie, the bet is returned
+    } // No need to change chips for losing, as the bet is already deducted
+
     currentBet = 0;
     updateChipsAndBet();
     document.getElementById('place-bet').disabled = false;
