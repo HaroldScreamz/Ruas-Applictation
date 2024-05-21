@@ -38,6 +38,7 @@ function startGame() {
         alert("Please place a bet to start the game.");
         return;
     }
+    gameOver = false;
     document.getElementById('hit').disabled = false;
     document.getElementById('stand').disabled = false;
     document.getElementById('double').disabled = true;
@@ -68,6 +69,7 @@ function handToHTML(hand) {
 }
 
 function hit() {
+    if (gameOver) return;
     playerHand.push(drawCard());
     displayHands();
     if (getHandValue(playerHand) > 21) {
@@ -76,6 +78,7 @@ function hit() {
 }
 
 function stand() {
+    if (gameOver) return;
     while (getHandValue(dealerHand) < 17) {
         dealerHand.push(drawCard());
     }
@@ -92,17 +95,14 @@ function stand() {
 }
 
 function doubleDown() {
-    if (playerChips >= currentBet) {
-        playerChips -= currentBet;
-        currentBet *= 2;
-        updateChipsAndBet();
-        hit();
-        document.getElementById('double').disabled = true;
-        if (!gameOver) {
-            stand();
-        }
-    } else {
-        alert("Not enough chips to double down.");
+    if (gameOver || playerChips < currentBet) return;
+    playerChips -= currentBet;
+    currentBet *= 2;
+    updateChipsAndBet();
+    hit();
+    document.getElementById('double').disabled = true;
+    if (!gameOver) {
+        stand();
     }
 }
 
@@ -132,7 +132,7 @@ function getHandValue(hand) {
 
 function checkForBlackjack() {
     if (getHandValue(playerHand) === 21) {
-        endGame('Blackjack! You win!');
+        endGame('Blackjack! You win!', true);
     }
 }
 
@@ -141,9 +141,12 @@ function checkForDoubleAndSplit() {
     if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
         document.getElementById('double').disabled = false;
     }
+    if (playerHand.length === 2 && playerHand[0].value === playerHand[1].value) {
+        document.getElementById('split').disabled = false;
+    }
 }
 
-function endGame(message) {
+function endGame(message, isBlackjack = false) {
     gameOver = true;
     document.getElementById('message').textContent = message;
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
@@ -152,7 +155,7 @@ function endGame(message) {
     document.getElementById('double').disabled = true;
     document.getElementById('split').disabled = true;
 
-    if (message.includes('Blackjack') {
+    if (message.includes('win') && isBlackjack) {
         playerChips += currentBet * 2.5; // Winning with Blackjack gives 1.5x bet plus original bet
     } else if (message.includes('win')) {
         playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
