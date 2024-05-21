@@ -156,6 +156,7 @@ function placeBet() {
         return;
     }
     currentBet = betAmount;
+    playerChips -= betAmount; // Deduct the bet amount from player's chips
     updateChipsAndBet();
     startGame();
 }
