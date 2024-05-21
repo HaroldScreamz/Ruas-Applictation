@@ -1,7 +1,7 @@
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
-let playerChips = 100000;
+let playerChips = 100;
 let currentBet = 0;
 let gameOver = false;
 
@@ -166,7 +166,7 @@ function endGame(message, isBlackjack = false) {
 }
 
 function resetGame() {
-    playerChips = 100000; // Reset chips to 100
+    playerChips = 100; // Reset chips to 100
     currentBet = 0;
     gameOver = false;
     updateChipsAndBet();
