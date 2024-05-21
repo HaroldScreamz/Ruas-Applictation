@@ -189,4 +189,24 @@ function updateTotals() {
 
 function updateChipsAndBet() {
     document.getElementById('player-chips').textContent = `Chips: ${playerChips}`;
-    document.getElementById('current-bet').textContent =
+    document.getElementById('current-bet').textContent = `Current Bet: ${currentBet}`;
+}
+
+function placeBet() {
+    const betAmount = parseInt(document.getElementById('bet-amount').value);
+    if (isNaN(betAmount) || betAmount <= 0) {
+        alert("Please enter a valid bet amount.");
+        return;
+    }
+    if (betAmount > playerChips) {
+        alert("You don't have enough chips to place that bet.");
+        return;
+    }
+    currentBet = betAmount;
+    playerChips -= betAmount; // Deduct the bet amount from player's chips
+    updateChipsAndBet();
+    startGame();
+}
+
+let gameOver = false;
+updateChipsAndBet();
