@@ -3,6 +3,7 @@ let playerHand = [];
 let dealerHand = [];
 let playerChips = 100;
 let currentBet = 0;
+let gameOver = false;
 
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
@@ -82,7 +83,7 @@ function stand() {
     if (getHandValue(dealerHand) > 21) {
         endGame('Dealer busts! You win!');
     } else if (getHandValue(dealerHand) > getHandValue(playerHand)) {
-        endGame('Dealer wins!');
+        endGame('You Lose!');
     } else if (getHandValue(dealerHand) < getHandValue(playerHand)) {
         endGame('You win!');
     } else {
@@ -112,7 +113,7 @@ function getHandValue(hand) {
     let value = 0;
     let numAces = 0;
     for (let card of hand) {
-        if (card.value === 'j' || card.value === 'q' || card.value === 'k') {
+        if (['j', 'q', 'k'].includes(card.value)) {
             value += 10;
         } else if (card.value === 'a') {
             value += 11;
@@ -208,5 +209,4 @@ function placeBet() {
     startGame();
 }
 
-let gameOver = false;
 updateChipsAndBet();
