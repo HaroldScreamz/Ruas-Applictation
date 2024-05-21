@@ -166,7 +166,7 @@ function endGame(message, isBlackjack = false) {
 }
 
 function resetGame() {
-    playerChips = 100; // Reset chips to 100
+    playerChips = 100000; // Reset chips to 100
     currentBet = 0;
     gameOver = false;
     updateChipsAndBet();
