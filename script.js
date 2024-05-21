@@ -138,7 +138,7 @@ function checkForBlackjack() {
 
 function checkForDoubleAndSplit() {
     const playerTotal = getHandValue(playerHand);
-    if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) && (playerHand.length === 2) {
+    if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
         document.getElementById('double').disabled = false;
     }
     if (playerHand.length === 2 && playerHand[0].value === playerHand[1].value) {
@@ -154,7 +154,7 @@ function endGame(message) {
     document.getElementById('stand').disabled = true;
     document.getElementById('double').disabled = true;
     document.getElementById('split').disabled = true;
-    
+
     if (message.includes('win')) {
         playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
     } else if (message.includes('Push')) {
@@ -169,6 +169,7 @@ function endGame(message) {
 function resetGame() {
     playerChips = 100; // Reset chips to 100
     currentBet = 0;
+    gameOver = false;
     updateChipsAndBet();
     document.getElementById('message').textContent = '';
     document.getElementById('hit').disabled = true;
@@ -210,5 +211,4 @@ function placeBet() {
     startGame();
 }
 
-let gameOver = false;
 updateChipsAndBet();
