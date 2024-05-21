@@ -141,9 +141,6 @@ function checkForDoubleAndSplit() {
     if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
         document.getElementById('double').disabled = false;
     }
-    if (playerHand.length === 2 && playerHand[0].value === playerHand[1].value) {
-        document.getElementById('split').disabled = false;
-    }
 }
 
 function endGame(message) {
