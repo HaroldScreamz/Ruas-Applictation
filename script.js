@@ -7,6 +7,7 @@ const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'
 document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('stand').addEventListener('click', stand);
 document.getElementById('reset').addEventListener('click', resetGame);
+document.getElementById('place-bet').addEventListener('click', placeBet);
 
 function createDeck() {
     deck = [];
@@ -27,12 +28,20 @@ function shuffle(array) {
 }
 
 function startGame() {
+    if (currentBet === 0) {
+        alert("Please place a bet to start the game.");
+        return;
+    }
+    document.getElementById('hit').disabled = false;
+    document.getElementById('stand').disabled = false;
+    document.getElementById('place-bet').disabled = true;
     createDeck();
     playerHand = [drawCard(), drawCard()];
     dealerHand = [drawCard()];
     displayHands();
     checkForBlackjack();
 }
+
 
 function drawCard() {
     return deck.pop();
@@ -107,7 +116,16 @@ function endGame(message) {
     gameOver = true;
     document.getElementById('message').textContent = message;
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
-    updateTotals();
+    document.getElementById('hit').disabled = true;
+    document.getElementById('stand').disabled = true;
+    if (message.includes('win')) {
+        playerChips += currentBet;
+    } else if (message.includes('lose')) {
+        playerChips -= currentBet;
+    }
+    currentBet = 0;
+    updateChipsAndBet();
+    document.getElementById('place-bet').disabled = false;
 }
 
 function resetGame() {
@@ -123,6 +141,26 @@ function updateTotals() {
     console.log('Dealer Total:', dealerTotal);
     document.getElementById('player-total').textContent = `Player Total: ${playerTotal}`;
     document.getElementById('dealer-total').textContent = `Dealer Total: ${dealerTotal}`;
+}
+
+function updateChipsAndBet() {
+    document.getElementById('player-chips').textContent = `Chips: ${playerChips}`;
+    document.getElementById('current-bet').textContent = `Current Bet: ${currentBet}`;
+}
+
+function placeBet() {
+    const betAmount = parseInt(document.getElementById('bet-amount').value);
+    if (isNaN(betAmount) || betAmount <= 0) {
+        alert("Please enter a valid bet amount.");
+        return;
+    }
+    if (betAmount > playerChips) {
+        alert("You don't have enough chips to place that bet.");
+        return;
+    }
+    currentBet = betAmount;
+    updateChipsAndBet();
+    startGame();
 }
 
 let gameOver = false;
