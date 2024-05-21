@@ -82,7 +82,7 @@ function stand() {
     if (getHandValue(dealerHand) > 21) {
         endGame('Dealer busts! You win!');
     } else if (getHandValue(dealerHand) > getHandValue(playerHand)) {
-        endGame('Better Luck Next Time!');
+        endGame('Dealer wins!');
     } else if (getHandValue(dealerHand) < getHandValue(playerHand)) {
         endGame('You win!');
     } else {
@@ -136,7 +136,7 @@ function checkForBlackjack() {
 
 function checkForDoubleAndSplit() {
     const playerTotal = getHandValue(playerHand);
-    if (playerHand.length === 2)&&(playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
+    if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
         document.getElementById('double').disabled = false;
     }
     if (playerHand.length === 2 && playerHand[0].value === playerHand[1].value) {
@@ -189,24 +189,4 @@ function updateTotals() {
 
 function updateChipsAndBet() {
     document.getElementById('player-chips').textContent = `Chips: ${playerChips}`;
-    document.getElementById('current-bet').textContent = `Current Bet: ${currentBet}`;
-}
-
-function placeBet() {
-    const betAmount = parseInt(document.getElementById('bet-amount').value);
-    if (isNaN(betAmount) || betAmount <= 0) {
-        alert("Please enter a valid bet amount.");
-        return;
-    }
-    if (betAmount > playerChips) {
-        alert("You don't have enough chips to place that bet.");
-        return;
-    }
-    currentBet = betAmount;
-    playerChips -= betAmount; // Deduct the bet amount from player's chips
-    updateChipsAndBet();
-    startGame();
-}
-
-let gameOver = false;
-updateChipsAndBet();
+    document.getElementById('current-bet').textContent =
