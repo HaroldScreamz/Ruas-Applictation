@@ -11,6 +11,8 @@ document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('stand').addEventListener('click', stand);
 document.getElementById('reset').addEventListener('click', resetGame);
 document.getElementById('place-bet').addEventListener('click', placeBet);
+document.getElementById('double').addEventListener('click', doubleDown);
+document.getElementById('split').addEventListener('click', splitHand);
 
 function createDeck() {
     deck = [];
@@ -37,12 +39,15 @@ function startGame() {
     }
     document.getElementById('hit').disabled = false;
     document.getElementById('stand').disabled = false;
+    document.getElementById('double').disabled = true;
+    document.getElementById('split').disabled = true;
     document.getElementById('place-bet').disabled = true;
     createDeck();
     playerHand = [drawCard(), drawCard()];
     dealerHand = [drawCard()];
     displayHands();
     checkForBlackjack();
+    checkForDoubleAndSplit();
 }
 
 function drawCard() {
@@ -85,6 +90,24 @@ function stand() {
     }
 }
 
+function doubleDown() {
+    if (playerChips >= currentBet) {
+        playerChips -= currentBet;
+        currentBet *= 2;
+        updateChipsAndBet();
+        hit();
+        if (!gameOver) {
+            stand();
+        }
+    } else {
+        alert("Not enough chips to double down.");
+    }
+}
+
+function splitHand() {
+    // Implement splitting logic here
+}
+
 function getHandValue(hand) {
     let value = 0;
     let numAces = 0;
@@ -117,6 +140,8 @@ function endGame(message) {
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
     document.getElementById('hit').disabled = true;
     document.getElementById('stand').disabled = true;
+    document.getElementById('double').disabled = true;
+    document.getElementById('split').disabled = true;
     
     if (message.includes('win')) {
         playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
@@ -130,9 +155,19 @@ function endGame(message) {
 }
 
 function resetGame() {
-    gameOver = false;
+    playerChips = 100; // Reset chips to 100
+    currentBet = 0;
+    updateChipsAndBet();
     document.getElementById('message').textContent = '';
-    startGame();
+    document.getElementById('hit').disabled = true;
+    document.getElementById('stand').disabled = true;
+    document.getElementById('double').disabled = true;
+    document.getElementById('split').disabled = true;
+    document.getElementById('place-bet').disabled = false;
+    document.getElementById('player-hand').innerHTML = '';
+    document.getElementById('dealer-hand').innerHTML = '';
+    document.getElementById('player-total').textContent = 'Player Total: 0';
+    document.getElementById('dealer-total').textContent = 'Dealer Total: 0';
 }
 
 function updateTotals() {
