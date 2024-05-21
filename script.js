@@ -118,9 +118,9 @@ function endGame(message) {
     document.getElementById('hit').disabled = true;
     document.getElementById('stand').disabled = true;
     if (message.includes('win')) {
-        playerChips += currentBet;
+        playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
     } else if (message.includes('lose')) {
-        playerChips -= currentBet;
+        // Bet amount has already been deducted at the time of placing the bet
     }
     currentBet = 0;
     updateChipsAndBet();
