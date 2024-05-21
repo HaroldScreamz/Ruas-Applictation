@@ -1,7 +1,7 @@
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
-let playerChips = 100;
+let playerChips = 100000;
 let currentBet = 0;
 let gameOver = false;
 
