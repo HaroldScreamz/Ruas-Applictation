@@ -83,7 +83,7 @@ function stand() {
     if (getHandValue(dealerHand) > 21) {
         endGame('Dealer busts! You win!');
     } else if (getHandValue(dealerHand) > getHandValue(playerHand)) {
-        endGame('You Lose!');
+        endGame('You lose!');
     } else if (getHandValue(dealerHand) < getHandValue(playerHand)) {
         endGame('You win!');
     } else {
@@ -97,6 +97,7 @@ function doubleDown() {
         currentBet *= 2;
         updateChipsAndBet();
         hit();
+        document.getElementById('double').disabled = true;
         if (!gameOver) {
             stand();
         }
@@ -137,7 +138,7 @@ function checkForBlackjack() {
 
 function checkForDoubleAndSplit() {
     const playerTotal = getHandValue(playerHand);
-    if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
+    if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) && (playerHand.length === 2) {
         document.getElementById('double').disabled = false;
     }
     if (playerHand.length === 2 && playerHand[0].value === playerHand[1].value) {
