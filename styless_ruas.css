@@ -30,7 +30,7 @@ body {
     border-radius: 5px;
 }
 
-#controls button {
+#controls button, #place-bet {
     margin: 5px;
     padding: 10px 20px;
     background-color: #2980b9;
@@ -39,9 +39,10 @@ body {
     cursor: pointer;
 }
 
-#controls button:hover {
+#controls button:hover, #place-bet:hover {
     background-color: #3498db;
 }
+
 
 #message {
     margin-top: 20px;
