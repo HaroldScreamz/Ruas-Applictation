@@ -45,17 +45,14 @@ function startGame() {
     checkForBlackjack();
 }
 
-
 function drawCard() {
     return deck.pop();
 }
 
 function displayHands() {
-    console.log('Player Hand:', playerHand);
-    console.log('Dealer Hand:', dealerHand);
     document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
-   updateTotals();
+    updateTotals();
 }
 
 function handToHTML(hand) {
@@ -70,7 +67,6 @@ function hit() {
     if (getHandValue(playerHand) > 21) {
         endGame('Bust! You lose.');
     }
-    updateTotals();
 }
 
 function stand() {
@@ -140,8 +136,6 @@ function resetGame() {
 function updateTotals() {
     const playerTotal = getHandValue(playerHand);
     const dealerTotal = getHandValue(dealerHand);
-    console.log('Player Total:', playerTotal);
-    console.log('Dealer Total:', dealerTotal);
     document.getElementById('player-total').textContent = `Player Total: ${playerTotal}`;
     document.getElementById('dealer-total').textContent = `Dealer Total: ${dealerTotal}`;
 }
@@ -167,4 +161,4 @@ function placeBet() {
 }
 
 let gameOver = false;
-startGame();
+updateChipsAndBet();
