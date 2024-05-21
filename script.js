@@ -1,9 +1,12 @@
 let deck = [];
 let playerHand = [];
+let splitHand = [];
 let dealerHand = [];
 let playerChips = 100;
 let currentBet = 0;
+let splitBet = 0;
 let gameOver = false;
+let inSplitMode = false;
 
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
@@ -107,7 +110,16 @@ function doubleDown() {
 }
 
 function splitHand() {
-    // Implement splitting logic here
+    if (gameOver || playerChips < currentBet) return;
+    playerChips -= currentBet;
+    splitBet = currentBet;
+    splitHand = [playerHand.pop()];
+    playerHand.push(drawCard());
+    splitHand.push(drawCard());
+    inSplitMode = true;
+    updateChipsAndBet();
+    displayHands();
+    document.getElementById('split').disabled = true;
 }
 
 function getHandValue(hand) {
