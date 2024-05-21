@@ -1,3 +1,10 @@
+head {
+     font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #808080; /* Gray color */
+    color: white;
+}
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
