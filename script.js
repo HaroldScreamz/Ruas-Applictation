@@ -143,7 +143,7 @@ function checkForDoubleAndSplit() {
     }
 }
 
-function endGame(message, isBlackjack = false) {
+function endGame(message) {
     gameOver = true;
     document.getElementById('message').textContent = message;
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
