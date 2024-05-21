@@ -210,4 +210,5 @@ function placeBet() {
     startGame();
 }
 
+let gameOver = false;
 updateChipsAndBet();
