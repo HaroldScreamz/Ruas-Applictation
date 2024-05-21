@@ -152,7 +152,7 @@ function endGame(message, isBlackjack = false) {
     document.getElementById('double').disabled = true;
     document.getElementById('split').disabled = true;
 
-    if (message.includes('win') && isBlackjack) {
+    if (message.includes('Blackjack! You Win!') {
         playerChips += currentBet * 2.5; // Winning with Blackjack gives 1.5x bet plus original bet
     } else if (message.includes('win')) {
         playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
