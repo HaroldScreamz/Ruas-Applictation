@@ -43,7 +43,7 @@ function displayHands() {
     console.log('Dealer Hand:', dealerHand);
     document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
-    updatePlayerTotal();
+   updateTotals();
 }
 
 function handToHTML(hand) {
