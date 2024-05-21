@@ -1,12 +1,12 @@
 let deck = [];
 let playerHand = [];
-let splitHand = [];
 let dealerHand = [];
 let playerChips = 100;
 let currentBet = 0;
 let splitBet = 0;
+let splitHandActive = false;
+let playerHand2 = [];
 let gameOver = false;
-let inSplitMode = false;
 
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
@@ -42,6 +42,8 @@ function startGame() {
         return;
     }
     gameOver = false;
+    splitHandActive = false;
+    playerHand2 = [];
     document.getElementById('hit').disabled = false;
     document.getElementById('stand').disabled = false;
     document.getElementById('double').disabled = true;
@@ -60,7 +62,11 @@ function drawCard() {
 }
 
 function displayHands() {
-    document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
+    if (splitHandActive) {
+        document.getElementById('player-hand').innerHTML = handToHTML(playerHand) + "<br>" + handToHTML(playerHand2);
+    } else {
+        document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
+    }
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
     updateTotals();
 }
@@ -73,27 +79,64 @@ function handToHTML(hand) {
 
 function hit() {
     if (gameOver) return;
-    playerHand.push(drawCard());
-    displayHands();
-    if (getHandValue(playerHand) > 21) {
-        endGame('Bust! You lose.');
+
+    if (splitHandActive && playerHand2.length > 0) {
+        playerHand2.push(drawCard());
+        displayHands();
+        if (getHandValue(playerHand2) > 21) {
+            endGame('Bust on second hand! You lose.');
+        }
+    } else {
+        playerHand.push(drawCard());
+        displayHands();
+        if (getHandValue(playerHand) > 21) {
+            endGame('Bust! You lose.');
+        }
     }
 }
 
 function stand() {
     if (gameOver) return;
-    while (getHandValue(dealerHand) < 17) {
-        dealerHand.push(drawCard());
+
+    if (splitHandActive && playerHand2.length === 0) {
+        playerHand2.push(drawCard());
+        displayHands();
+    } else {
+        while (getHandValue(dealerHand) < 17) {
+            dealerHand.push(drawCard());
+        }
+        displayHands();
+        determineWinner();
     }
-    displayHands();
+}
+
+function determineWinner() {
     if (getHandValue(dealerHand) > 21) {
         endGame('Dealer busts! You win!');
-    } else if (getHandValue(dealerHand) > getHandValue(playerHand)) {
-        endGame('You lose!');
-    } else if (getHandValue(dealerHand) < getHandValue(playerHand)) {
-        endGame('You win!');
+    } else if (splitHandActive) {
+        const playerValue1 = getHandValue(playerHand);
+        const playerValue2 = getHandValue(playerHand2);
+        const dealerValue = getHandValue(dealerHand);
+
+        if (dealerValue > playerValue1 && dealerValue > playerValue2) {
+            endGame('You lose both hands!');
+        } else if (dealerValue < playerValue1 && dealerValue < playerValue2) {
+            endGame('You win both hands!');
+        } else if (dealerValue > playerValue1) {
+            endGame('You lose first hand, push second hand.');
+        } else if (dealerValue > playerValue2) {
+            endGame('You win first hand, lose second hand.');
+        } else {
+            endGame('Push on both hands!');
+        }
     } else {
-        endGame('Push! It\'s a tie.');
+        if (getHandValue(dealerHand) > getHandValue(playerHand)) {
+            endGame('You lose!');
+        } else if (getHandValue(dealerHand) < getHandValue(playerHand)) {
+            endGame('You win!');
+        } else {
+            endGame('Push! It\'s a tie.');
+        }
     }
 }
 
@@ -111,15 +154,16 @@ function doubleDown() {
 
 function splitHand() {
     if (gameOver || playerChips < currentBet) return;
+    splitHandActive = true;
     playerChips -= currentBet;
     splitBet = currentBet;
-    splitHand = [playerHand.pop()];
+    playerHand2 = [playerHand.pop()];
     playerHand.push(drawCard());
-    splitHand.push(drawCard());
-    inSplitMode = true;
+    playerHand2.push(drawCard());
     updateChipsAndBet();
     displayHands();
     document.getElementById('split').disabled = true;
+    document.getElementById('double').disabled = true;
 }
 
 function getHandValue(hand) {
@@ -175,7 +219,16 @@ function endGame(message, isBlackjack = false) {
         playerChips += currentBet; // In a tie, the bet is returned
     } // No need to change chips for losing, as the bet is already deducted
 
+    if (splitHandActive) {
+        if (message.includes('win')) {
+            playerChips += splitBet * 2;
+        } else if (message.includes('Push')) {
+            playerChips += splitBet;
+        }
+    }
+
     currentBet = 0;
+    splitBet = 0;
     updateChipsAndBet();
     document.getElementById('place-bet').disabled = false;
 }
@@ -183,7 +236,10 @@ function endGame(message, isBlackjack = false) {
 function resetGame() {
     playerChips = 100; // Reset chips to 100
     currentBet = 0;
+    splitBet = 0;
     gameOver = false;
+    splitHandActive = false;
+    playerHand2 = [];
     updateChipsAndBet();
     document.getElementById('message').textContent = '';
     document.getElementById('hit').disabled = true;
@@ -202,6 +258,10 @@ function updateTotals() {
     const dealerTotal = getHandValue(dealerHand);
     document.getElementById('player-total').textContent = `Player Total: ${playerTotal}`;
     document.getElementById('dealer-total').textContent = `Dealer Total: ${dealerTotal}`;
+    if (splitHandActive) {
+        const playerTotal2 = getHandValue(playerHand2);
+        document.getElementById('player-total').textContent += `, Split Hand Total: ${playerTotal2}`;
+    }
 }
 
 function updateChipsAndBet() {
