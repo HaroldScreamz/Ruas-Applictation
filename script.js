@@ -143,7 +143,7 @@ function checkForDoubleAndSplit() {
     }
 }
 
-function endGame(message) {
+function endGame(message, isBlackjack = false) {
     gameOver = true;
     document.getElementById('message').textContent = message;
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
@@ -152,7 +152,9 @@ function endGame(message) {
     document.getElementById('double').disabled = true;
     document.getElementById('split').disabled = true;
 
-    if (message.includes('win')) {
+    if (message.includes('win') && isBlackjack) {
+        playerChips += currentBet * 2.5; // Winning with Blackjack gives 1.5x bet plus original bet
+    } else if (message.includes('win')) {
         playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
     } else if (message.includes('Push')) {
         playerChips += currentBet; // In a tie, the bet is returned
