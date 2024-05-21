@@ -58,6 +58,7 @@ function hit() {
     if (getHandValue(playerHand) > 21) {
         endGame('Bust! You lose.');
     }
+    updateTotals();
 }
 
 function stand() {
@@ -106,6 +107,7 @@ function endGame(message) {
     gameOver = true;
     document.getElementById('message').textContent = message;
     document.getElementById('dealer-hand').innerHTML = handToHTML(dealerHand);
+    updateTotals();
 }
 
 function resetGame() {
@@ -114,10 +116,13 @@ function resetGame() {
     startGame();
 }
 
-function updatePlayerTotal() {
-    const total = getHandValue(playerHand);
-    console.log('Player Total:', total);
-    document.getElementById('player-total').textContent = `Player Total: ${total}`;
+function updateTotals() {
+    const playerTotal = getHandValue(playerHand);
+    const dealerTotal = getHandValue(dealerHand);
+    console.log('Player Total:', playerTotal);
+    console.log('Dealer Total:', dealerTotal);
+    document.getElementById('player-total').textContent = `Player Total: ${playerTotal}`;
+    document.getElementById('dealer-total').textContent = `Dealer Total: ${dealerTotal}`;
 }
 
 let gameOver = false;
