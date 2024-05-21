@@ -134,6 +134,16 @@ function checkForBlackjack() {
     }
 }
 
+function checkForDoubleAndSplit() {
+    const playerTotal = getHandValue(playerHand);
+    if (playerHand.length === 2)&&(playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
+        document.getElementById('double').disabled = false;
+    }
+    if (playerHand.length === 2 && playerHand[0].value === playerHand[1].value) {
+        document.getElementById('split').disabled = false;
+    }
+}
+
 function endGame(message) {
     gameOver = true;
     document.getElementById('message').textContent = message;
