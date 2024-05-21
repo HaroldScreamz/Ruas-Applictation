@@ -1,6 +1,9 @@
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
+let playerChips = 100;
+let currentBet = 0;
+
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
 
