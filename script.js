@@ -77,7 +77,7 @@ function stand() {
     if (getHandValue(dealerHand) > 21) {
         endGame('Dealer busts! You win!');
     } else if (getHandValue(dealerHand) > getHandValue(playerHand)) {
-        endGame('Dealer wins!');
+        endGame('Better Luck Next Time!');
     } else if (getHandValue(dealerHand) < getHandValue(playerHand)) {
         endGame('You win!');
     } else {
