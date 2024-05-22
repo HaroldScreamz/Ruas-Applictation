@@ -1,11 +1,12 @@
 let deck = [];
 let playerHand = [];
+let playerHand2 = [];
 let dealerHand = [];
 let playerChips = 100;
 let currentBet = 0;
 let splitBet = 0;
 let splitHandActive = false;
-let playerHand2 = [];
+let activeHand = 1;  // 1 for the first hand, 2 for the second hand
 let gameOver = false;
 
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
@@ -46,6 +47,7 @@ function startGame() {
     gameOver = false;
     splitHandActive = false;
     playerHand2 = [];
+    activeHand = 1;
     document.getElementById('hit').disabled = false;
     document.getElementById('stand').disabled = false;
     document.getElementById('double').disabled = true;
@@ -65,7 +67,7 @@ function drawCard() {
 
 function displayHands() {
     if (splitHandActive) {
-        document.getElementById('player-hand').innerHTML = handToHTML(playerHand) + "<br>" + handToHTML(playerHand2);
+        document.getElementById('player-hand').innerHTML = `Hand 1: ${handToHTML(playerHand)} <br> Hand 2: ${handToHTML(playerHand2)}`;
     } else {
         document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
     }
@@ -82,17 +84,23 @@ function handToHTML(hand) {
 function hit() {
     if (gameOver) return;
 
-    if (splitHandActive && playerHand2.length > 0) {
+    if (splitHandActive && activeHand === 2) {
         playerHand2.push(drawCard());
         displayHands();
         if (getHandValue(playerHand2) > 21) {
-            endGame('Bust on second hand! You lose.');
+            activeHand = 1;  // Move back to the first hand
+            stand();
         }
     } else {
         playerHand.push(drawCard());
         displayHands();
         if (getHandValue(playerHand) > 21) {
-            endGame('Bust! You lose.');
+            if (splitHandActive) {
+                activeHand = 2;  // Move to the second hand
+                document.getElementById('message').textContent = 'First hand bust! Playing second hand...';
+            } else {
+                endGame('Bust! You lose.');
+            }
         }
     }
 }
@@ -100,9 +108,9 @@ function hit() {
 function stand() {
     if (gameOver) return;
 
-    if (splitHandActive && playerHand2.length === 0) {
-        playerHand2.push(drawCard());
-        displayHands();
+    if (splitHandActive && activeHand === 1) {
+        activeHand = 2;  // Move to the second hand
+        document.getElementById('message').textContent = 'Playing second hand...';
     } else {
         while (getHandValue(dealerHand) < 17) {
             dealerHand.push(drawCard());
@@ -120,17 +128,25 @@ function determineWinner() {
         const playerValue2 = getHandValue(playerHand2);
         const dealerValue = getHandValue(dealerHand);
 
-        if (dealerValue > playerValue1 && dealerValue > playerValue2) {
-            endGame('You lose both hands!');
-        } else if (dealerValue < playerValue1 && dealerValue < playerValue2) {
-            endGame('You win both hands!');
-        } else if (dealerValue > playerValue1) {
-            endGame('You lose first hand, push second hand.');
-        } else if (dealerValue > playerValue2) {
-            endGame('You win first hand, lose second hand.');
+        let message = '';
+
+        if (dealerValue > playerValue1) {
+            message += 'First hand loses. ';
+        } else if (dealerValue < playerValue1) {
+            message += 'First hand wins! ';
         } else {
-            endGame('Push on both hands!');
+            message += 'First hand pushes. ';
         }
+
+        if (dealerValue > playerValue2) {
+            message += 'Second hand loses.';
+        } else if (dealerValue < playerValue2) {
+            message += 'Second hand wins!';
+        } else {
+            message += 'Second hand pushes.';
+        }
+
+        endGame(message);
     } else {
         if (getHandValue(dealerHand) > getHandValue(playerHand)) {
             endGame('You lose!');
@@ -222,7 +238,7 @@ function endGame(message, isBlackjack = false) {
     } // No need to change chips for losing, as the bet is already deducted
 
     if (splitHandActive) {
-        if (message.includes('win')) {
+        if (message.includes('wins!')) {
             playerChips += splitBet * 2;
         } else if (message.includes('Push')) {
             playerChips += splitBet;
