@@ -135,7 +135,7 @@ function determineWinner() {
 
         if (dealerValue > playerValue1) {
             message += 'First hand loses. ';
-        } else if (dealerValue < playerValue1) {
+        } else if (dealerValue < playerValue1 && playerValue1 < 22) {
             message += 'First hand wins! ';
         } else {
             message += 'First hand pushes. ';
@@ -143,7 +143,7 @@ function determineWinner() {
 
         if (dealerValue > playerValue2) {
             message += 'Second hand loses.';
-        } else if (dealerValue < playerValue2) {
+        } else if (dealerValue < playerValue2 && playerValue2 < 22) {
             message += 'Second hand wins!';
         } else {
             message += 'Second hand pushes.';
@@ -153,7 +153,7 @@ function determineWinner() {
     } else {
         if (getHandValue(dealerHand) > getHandValue(playerHand)) {
             endGame('You lose!');
-        } else if (getHandValue(dealerHand) < getHandValue(playerHand)) {
+        } else if (getHandValue(dealerHand) < getHandValue(playerHand) && getHandValue(playerHand) < 22) {
             endGame('You win!');
         } else {
             endGame('Push! It\'s a tie.');
