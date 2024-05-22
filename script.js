@@ -133,17 +133,23 @@ function determineWinner() {
 
         let message = '';
 
-        if (dealerValue > playerValue1) {
+        // Determine the result for the first hand
+        if (playerValue1 > 21) {
+            message += 'First hand busts. ';
+        } else if (dealerValue > playerValue1) {
             message += 'First hand loses. ';
-        } else if (dealerValue < playerValue1 && playerValue1 < 22) {
+        } else if (dealerValue < playerValue1) {
             message += 'First hand wins! ';
         } else {
             message += 'First hand pushes. ';
         }
 
-        if (dealerValue > playerValue2) {
+        // Determine the result for the second hand
+        if (playerValue2 > 21) {
+            message += 'Second hand busts.';
+        } else if (dealerValue > playerValue2) {
             message += 'Second hand loses.';
-        } else if (dealerValue < playerValue2 && playerValue2 < 22) {
+        } else if (dealerValue < playerValue2) {
             message += 'Second hand wins!';
         } else {
             message += 'Second hand pushes.';
@@ -151,15 +157,19 @@ function determineWinner() {
 
         endGame(message);
     } else {
-        if (getHandValue(dealerHand) > getHandValue(playerHand)) {
+        const playerValue = getHandValue(playerHand);
+        const dealerValue = getHandValue(dealerHand);
+
+        if (dealerValue > playerValue) {
             endGame('You lose!');
-        } else if (getHandValue(dealerHand) < getHandValue(playerHand) && getHandValue(playerHand) < 22) {
+        } else if (dealerValue < playerValue) {
             endGame('You win!');
         } else {
             endGame('Push! It\'s a tie.');
         }
     }
 }
+
 
 function doubleDown() {
     if (gameOver || playerChips < currentBet) return;
@@ -232,19 +242,25 @@ function endGame(message, isBlackjack = false) {
     document.getElementById('double').disabled = true;
     document.getElementById('split').disabled = true;
 
-    if (message.includes('win') && isBlackjack) {
+    if (isBlackjack) {
         playerChips += currentBet * 2.5; // Winning with Blackjack gives 1.5x bet plus original bet
-    } else if (message.includes('win')) {
-        playerChips += currentBet * 2; // Winning returns the bet and the same amount as winnings
-    } else if (message.includes('Push')) {
-        playerChips += currentBet; // In a tie, the bet is returned
-    } // No need to change chips for losing, as the bet is already deducted
+    } else {
+        if (message.includes('First hand wins')) {
+            playerChips += currentBet * 2;
+        } else if (message.includes('First hand pushes')) {
+            playerChips += currentBet;
+        }
 
-    if (splitHandActive) {
-        if (message.includes('wins!')) {
-            playerChips += splitBet * 2;
+        if (splitHandActive) {
+            if (message.includes('Second hand wins')) {
+                playerChips += splitBet * 2;
+            } else if (message.includes('Second hand pushes')) {
+                playerChips += splitBet;
+            }
+        } else if (message.includes('win')) {
+            playerChips += currentBet * 2;
         } else if (message.includes('Push')) {
-            playerChips += splitBet;
+            playerChips += currentBet;
         }
     }
 
@@ -253,6 +269,7 @@ function endGame(message, isBlackjack = false) {
     updateChipsAndBet();
     document.getElementById('place-bet').disabled = false;
 }
+
 
 function resetGame() {
     playerChips = 100; // Reset chips to 100
