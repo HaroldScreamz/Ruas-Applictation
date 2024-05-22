@@ -20,9 +20,11 @@ document.getElementById('split').addEventListener('click', splitHand);
 
 function createDeck() {
     deck = [];
-    for (let suit of suits) {
-        for (let value of values) {
-            deck.push({ suit, value });
+    for (let d = 0; d < 8; d++) { // Create 8 decks
+        for (let suit of suits) {
+            for (let value of values) {
+                deck.push({ suit, value });
+            }
         }
     }
     deck = shuffle(deck);
