@@ -88,8 +88,7 @@ function hit() {
         playerHand2.push(drawCard());
         displayHands();
         if (getHandValue(playerHand2) > 21) {
-            activeHand = 1;  // Move back to the first hand
-            stand();
+            stand(); // Automatically stand if hand 2 busts
         }
     } else {
         playerHand.push(drawCard());
@@ -98,6 +97,8 @@ function hit() {
             if (splitHandActive) {
                 activeHand = 2;  // Move to the second hand
                 document.getElementById('message').textContent = 'First hand bust! Playing second hand...';
+                document.getElementById('hit').disabled = false;
+                document.getElementById('stand').disabled = false;
             } else {
                 endGame('Bust! You lose.');
             }
@@ -111,6 +112,8 @@ function stand() {
     if (splitHandActive && activeHand === 1) {
         activeHand = 2;  // Move to the second hand
         document.getElementById('message').textContent = 'Playing second hand...';
+        document.getElementById('hit').disabled = false;
+        document.getElementById('stand').disabled = false;
     } else {
         while (getHandValue(dealerHand) < 17) {
             dealerHand.push(drawCard());
