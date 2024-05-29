@@ -23,6 +23,15 @@ body {
     border-radius: 10px;
 }
 
+@media (max-width: 600px) {
+    .hand img {
+        margin: 20px;
+        width: 60px;
+        height: 90px;
+        border-radius: 5px;
+    }
+}
+
 #controls button, #place-bet {
     margin: 5px;
     padding: 10px 20px;
