@@ -317,7 +317,7 @@ function updateTotals() {
 
 function updateChipsAndBet() {
     document.getElementById('player-chips').textContent = `Chips: ${playerChips}`;
-    document.getElementById('current-bet').textContent = `Current Bet: ${currentBet}`;
+    document.getElementById('current-bet').textContent = `Current Bet: ${currentBet + splitBet}`;
 }
 
 function placeBet() {
