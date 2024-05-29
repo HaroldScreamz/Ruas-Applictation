@@ -1,14 +1,7 @@
-head {
-     font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #808080; /* Gray color */
-    color: white;
-}
-
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #808080; /* Gray color */
+    background-color: #808080; /*Gray Colour*/
     color: white;
 }
 
@@ -24,10 +17,10 @@ body {
 }
 
 .hand img {
-    margin: 0 10px;
-    width: 60px;
-    height: 90px;
-    border-radius: 5px;
+    margin: 0 20px;
+    width: 120px;
+    height: 180px;
+    border-radius: 10px;
 }
 
 #controls button, #place-bet {
