@@ -171,6 +171,7 @@ function determineWinner() {
 }
 
 
+
 function doubleDown() {
     if (gameOver || playerChips < currentBet) return;
     playerChips -= currentBet;
@@ -232,7 +233,6 @@ function checkForDoubleAndSplit() {
         document.getElementById('split').disabled = false;
     }
 }
-
 function endGame(message, isBlackjack = false) {
     gameOver = true;
     document.getElementById('message').textContent = message;
@@ -269,6 +269,7 @@ function endGame(message, isBlackjack = false) {
     updateChipsAndBet();
     document.getElementById('place-bet').disabled = false;
 }
+
 
 
 function resetGame() {
