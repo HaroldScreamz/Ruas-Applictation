@@ -30,6 +30,17 @@ body {
         height: 90px;
         border-radius: 5px;
     }
+    #controls button, #place-bet {
+    margin: 5px;
+    padding: 50px 10px;
+    background-color: #2980b9;
+    border: none;
+    color: white;
+    cursor: pointer;
+    }
+    #controls button:hover, #place-bet:hover {
+    background-color: #3498db;
+    }
 }
 
 #controls button, #place-bet {
