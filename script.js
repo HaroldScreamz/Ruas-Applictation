@@ -125,7 +125,19 @@ function stand() {
 
 function determineWinner() {
     if (getHandValue(dealerHand) > 21) {
-        endGame('Dealer busts! You win!');
+        // Dealer busts
+        if (splitHandActive) {
+            let message = 'Dealer busts! ';
+            if (getHandValue(playerHand) <= 21) {
+                message += 'First hand wins! ';
+            }
+            if (getHandValue(playerHand2) <= 21) {
+                message += 'Second hand wins!';
+            }
+            endGame(message);
+        } else {
+            endGame('Dealer busts! You win!');
+        }
     } else if (splitHandActive) {
         const playerValue1 = getHandValue(playerHand);
         const playerValue2 = getHandValue(playerHand2);
@@ -169,8 +181,6 @@ function determineWinner() {
         }
     }
 }
-
-
 
 function doubleDown() {
     if (gameOver || playerChips < currentBet) return;
@@ -233,6 +243,7 @@ function checkForDoubleAndSplit() {
         document.getElementById('split').disabled = false;
     }
 }
+
 function endGame(message, isBlackjack = false) {
     gameOver = true;
     document.getElementById('message').textContent = message;
@@ -242,21 +253,24 @@ function endGame(message, isBlackjack = false) {
     document.getElementById('double').disabled = true;
     document.getElementById('split').disabled = true;
 
-    if (isBlackjack) {
-        playerChips += currentBet * 2.5; // Winning with Blackjack gives 1.5x bet plus original bet
-    } else {
-        if (message.includes('First hand wins')) {
-            playerChips += currentBet * 2;
-        } else if (message.includes('First hand pushes')) {
-            playerChips += currentBet;
-        }
+    // Calculate payouts for the first hand
+    if (message.includes('First hand wins') || message.includes('Dealer busts! First hand wins!')) {
+        playerChips += currentBet * 2;
+    } else if (message.includes('First hand pushes')) {
+        playerChips += currentBet;
+    }
 
-        if (splitHandActive) {
-            if (message.includes('Second hand wins')) {
-                playerChips += splitBet * 2;
-            } else if (message.includes('Second hand pushes')) {
-                playerChips += splitBet;
-            }
+    // Calculate payouts for the second hand
+    if (splitHandActive) {
+        if (message.includes('Second hand wins') || message.includes('Dealer busts! Second hand wins!')) {
+            playerChips += splitBet * 2;
+        } else if (message.includes('Second hand pushes')) {
+            playerChips += splitBet;
+        }
+    } else {
+        // Single hand scenario
+        if (isBlackjack) {
+            playerChips += currentBet * 2.5; // Winning with Blackjack gives 1.5x bet plus original bet
         } else if (message.includes('win')) {
             playerChips += currentBet * 2;
         } else if (message.includes('Push')) {
@@ -269,8 +283,6 @@ function endGame(message, isBlackjack = false) {
     updateChipsAndBet();
     document.getElementById('place-bet').disabled = false;
 }
-
-
 
 function resetGame() {
     playerChips = 100; // Reset chips to 100
