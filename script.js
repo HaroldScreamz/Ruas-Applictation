@@ -11,6 +11,11 @@ let gameOver = false;
 
 const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
 const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k', 'a'];
+const face_cards = {
+    'j' : 10,
+    'q' : 10,
+    'k' : 10
+};
 
 document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('stand').addEventListener('click', stand);
@@ -212,8 +217,8 @@ function getHandValue(hand) {
     let value = 0;
     let numAces = 0;
     for (let card of hand) {
-        if (['j', 'q', 'k'].includes(card.value)) {
-            value == 10;
+        if (face_cards[card.value]) {
+            value += face_cards[card.value];
         } else if (card.value === 'a') {
             value += 11;
             numAces += 1;
