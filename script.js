@@ -67,7 +67,7 @@ function drawCard() {
 
 function displayHands() {
     if (splitHandActive) {
-        document.getElementById('player-hand').innerHTML = `${handToHTML(playerHand)} <br> <br> <br> </br><br> </br><br> </br><br> </br><br> </br><br> </br><br> </br><br> </br></br></br> ${handToHTML(playerHand2)}`;
+        document.getElementById('player-hand').innerHTML = `${handToHTML(playerHand)} <p>            </p> ${handToHTML(playerHand2)}`;
     } else {
         document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
     }
