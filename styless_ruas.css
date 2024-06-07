@@ -11,8 +11,10 @@ body {
 }
 
 #spacer_split {
-    margin: 30px;
-    width: 40px;
+    height: 5px;
+    background-color: #808080;
+    margin: 20px 0;
+    width: 100%;
 }
 
 .hand {
