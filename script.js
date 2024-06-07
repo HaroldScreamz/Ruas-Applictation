@@ -213,7 +213,7 @@ function getHandValue(hand) {
     let numAces = 0;
     for (let card of hand) {
         if (['j', 'q', 'k'].includes(card.value)) {
-            value += 10;
+            value == 10;
         } else if (card.value === 'a') {
             value += 11;
             numAces += 1;
