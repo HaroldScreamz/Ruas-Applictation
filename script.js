@@ -72,9 +72,7 @@ function drawCard() {
 
 function displayHands() {
     if (splitHandActive) {
-        document.getElementById('player-hand').innerHTML = `<div>${handToHTML(playerHand)}</div> 
-        <div class="spacer_split"></div> 
-        <div>${handToHTML(playerHand2)}</div>`;
+        document.getElementById('player-hand').innerHTML = `${handToHTML(playerHand)} <div class="spacer_split"></div> ${handToHTML(playerHand2)}`;
     } else {
         document.getElementById('player-hand').innerHTML = handToHTML(playerHand);
     }
