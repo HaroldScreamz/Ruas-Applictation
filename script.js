@@ -330,6 +330,7 @@ function placeBet() {
         alert("You don't have enough chips to place that bet.");
         return;
     }
+    document.getElementById('message').textContent = '';
     currentBet = betAmount;
     playerChips -= betAmount; // Deduct the bet amount from player's chips
     updateChipsAndBet();
