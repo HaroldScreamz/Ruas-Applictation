@@ -10,6 +10,11 @@ body {
     margin-top: 20px;
 }
 
+#spacer_split {
+    margin: 30px;
+    width: 40px;
+}
+
 .hand {
     display: flex;
     justify-content: center;
