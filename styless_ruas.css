@@ -22,6 +22,10 @@ body {
     justify-content: center;
 }
 
+.show_totals {
+    margin-bottom: 20px;
+}
+
 .hand img {
     margin: 0 20px;
     width: 120px;
