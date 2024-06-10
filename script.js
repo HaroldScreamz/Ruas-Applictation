@@ -326,8 +326,8 @@ function resetGame() {
     document.getElementById('place-bet').disabled = false;
     document.getElementById('player-hand').innerHTML = '';
     document.getElementById('dealer-hand').innerHTML = '';
-    document.getElementById('player-total').textContent = ;
-    document.getElementById('dealer-total').textContent = ;
+    document.getElementById('player-total').textContent = '';
+    document.getElementById('dealer-total').textContent = '';
 }
 
 function updateTotals() {
