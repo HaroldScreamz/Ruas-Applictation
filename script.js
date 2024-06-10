@@ -213,19 +213,6 @@ function splitHand() {
     document.getElementById('double').disabled = true;
 }
 
-function getCardNumericValue(card) {
-    switch (card.value) {
-        case 'j':
-        case 'q':
-        case 'k':
-            return 10;
-        case 'a':
-            return 11;
-        default:
-            return parseInt(card.value);
-    }
-}
-
 function getHandValue(hand) {
     let value = 0;
     let numAces = 0;
@@ -252,16 +239,12 @@ function checkForBlackjack() {
     }
 }
 
-function areCardsSplittable(card1, card2) {
-    return getCardNumericValue(card1) === getCardNumericValue(card2);
-}
-
 function checkForDoubleAndSplit() {
     const playerTotal = getHandValue(playerHand);
     if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
         document.getElementById('double').disabled = false;
     }
-    if (playerHand.length === 2 && (areCardsSplittable(card1, card2)) {
+    if (playerHand.length === 2 && playerHand[0].value == playerHand[1].value) {
         document.getElementById('split').disabled = false;
     }
 }
