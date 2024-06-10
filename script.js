@@ -261,8 +261,11 @@ function checkForDoubleAndSplit() {
     if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
         document.getElementById('double').disabled = false;
     }
-    if (playerHand.length === 2 && (areCardsSplittable(card1, card2))) {
-        document.getElementById('split').disabled = false;
+     if (playerHand.length === 2) {
+        const [card1, card2] = playerHand;
+        if (areCardsSplittable(card1, card2)) {
+            document.getElementById('split').disabled = false;
+        }
     }
 }
 
