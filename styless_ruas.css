@@ -23,6 +23,8 @@ body {
 }
 
 .spacer {
+    display: flex;
+    margin-bottom: 20px;
     height: 20px;
 }
 
