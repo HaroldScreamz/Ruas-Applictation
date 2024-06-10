@@ -23,6 +23,7 @@ body {
 }
 
 .show_totals {
+    height: 20px;
     margin-bottom: 20px;
 }
 
