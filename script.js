@@ -233,10 +233,27 @@ function getHandValue(hand) {
     return value;
 }
 
+function getCardNumericValue(card) {
+    switch (card.value) {
+        case 'j':
+        case 'q':
+        case 'k':
+            return 10;
+        case 'a':
+            return 11;  // Use 11 for Aces in split checks, adjust as needed for other purposes
+        default:
+            return parseInt(card.value);
+    }
+}
+
 function checkForBlackjack() {
     if (getHandValue(playerHand) === 21) {
         endGame('Blackjack! You win!', true);
     }
+}
+
+function areCardsSplittable(card1, card2) {
+    return getCardNumericValue(card1) === getCardNumericValue(card2);
 }
 
 function checkForDoubleAndSplit() {
@@ -244,7 +261,7 @@ function checkForDoubleAndSplit() {
     if (playerTotal === 9 || playerTotal === 10 || playerTotal === 11) {
         document.getElementById('double').disabled = false;
     }
-    if (playerHand.length === 2 && playerHand[0].value == playerHand[1].value) {
+    if (playerHand.length === 2 && (areCardsSplittable(card1, card2))) {
         document.getElementById('split').disabled = false;
     }
 }
