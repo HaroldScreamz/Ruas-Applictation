@@ -25,6 +25,7 @@ body {
 .spacer {
     display: flex;
     margin-bottom: 20px;
+    justify-content: center;
     height: 20px;
 }
 
