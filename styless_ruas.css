@@ -22,7 +22,7 @@ body {
     justify-content: center;
 }
 
-.player_hand {
+.hand1 {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
