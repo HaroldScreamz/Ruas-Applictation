@@ -361,6 +361,7 @@ function placeBet() {
     playerChips -= betAmount; // Deduct the bet amount from player's chips
     updateChipsAndBet();
     startGame();
+    document.getElementByID('split-hand').innerHTML = ``;
 }
 
 updateChipsAndBet();
