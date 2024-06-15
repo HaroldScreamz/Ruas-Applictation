@@ -10,6 +10,36 @@ body {
     margin-top: 20px;
 }
 
+.game-option {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+}
+
+.game-option h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+}
+
+.game-option button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+}
+
+.game-option button:hover {
+            background-color: #45a049;
+}
+
 .spacer_split {
     height: 5px;
     background-color: #808080;
