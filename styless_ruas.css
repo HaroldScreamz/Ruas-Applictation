@@ -30,6 +30,17 @@ body {
             text-align: center;
 }
 
+.image-option {
+            display: inline-block;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 600px;
+            text-align: center;
+}
+
 .game-option h2 {
             font-size: 24px;
             margin-bottom: 20px;
