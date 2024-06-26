@@ -62,7 +62,7 @@ body {
 .menu-option button {
             backround: flex;
             font-size: 16px;
-            background-color: #4CAF50;
+            background-color: #0000FF;
             color: white;
             border: none;
             border-radius: 5px;
@@ -70,7 +70,7 @@ body {
 }
 
 .menu-option button:hover {
-            background-color: #45a049;
+            background-color: #000FFF;
 }
 
 .spacer_split {
