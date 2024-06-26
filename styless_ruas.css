@@ -59,6 +59,20 @@ body {
             background-color: #45a049;
 }
 
+.menu-option button {
+            backround: flex;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+}
+
+.menu-option button:hover {
+            background-color: #45a049;
+}
+
 .spacer_split {
     height: 5px;
     background-color: #808080;
@@ -131,11 +145,6 @@ nav{
     display: flex;
 }
 
-
-
-
-
-
 .dropbtn {
   background-color: #04AA6D;
   color: white;
@@ -150,7 +159,6 @@ nav{
   display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -159,20 +167,3 @@ nav{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
