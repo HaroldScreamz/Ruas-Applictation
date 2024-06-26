@@ -60,13 +60,15 @@ body {
 }
 
 .menu-option button {
-            backround-size: cover;
+            padding: 10px 20px;
             font-size: 16px;
             background-color: #0000FF;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
+            height: auto;
 }
 
 .menu-option button:hover {
