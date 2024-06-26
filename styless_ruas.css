@@ -56,13 +56,13 @@ body {
 }
 
 .game-option button:hover {
-            background-color: #45a049;
+            background-color: #2AF600;
 }
 
 .menu-option button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #0000FF;
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
@@ -72,7 +72,7 @@ body {
 }
 
 .menu-option button:hover {
-            background-color: #800FFF;
+            background-color: #2AF600;
 }
 
 .spacer_split {
