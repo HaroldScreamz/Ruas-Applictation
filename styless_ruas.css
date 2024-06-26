@@ -60,7 +60,7 @@ body {
 }
 
 .menu-option button {
-            backround: flex;
+            backround-size: cover;
             font-size: 16px;
             background-color: #0000FF;
             color: white;
