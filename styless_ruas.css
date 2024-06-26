@@ -126,7 +126,10 @@ body {
     font-size: 1.2em;
 }
 
-
+nav{
+    background-color: #404040;
+    display: flex;
+}
 
 
 
